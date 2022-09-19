@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06ccc3dc-ac3a-454e-af91-141df41c95fd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/exception/CantPutRedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/com/tw/step8/assignment5/MagicBallTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/exception/YellowExceededFortyPercentCapacityException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Bag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Color.java" afterDir="false" />
