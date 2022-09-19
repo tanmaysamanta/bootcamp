@@ -1,9 +1,6 @@
 package com.tw.step8.assignment5;
 
-import com.tw.step8.assignment5.exception.CantPutRedException;
-import com.tw.step8.assignment5.exception.ColorCapacityReachedException;
-import com.tw.step8.assignment5.exception.SpaceNotAvailableException;
-import com.tw.step8.assignment5.exception.YellowExceededFortyPercentCapacityException;
+import com.tw.step8.assignment5.exception.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,7 +15,7 @@ class BagTest {
     }
 
     @Test
-    void shouldPutAMagicBallToBag() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException {
+    void shouldPutAMagicBallToBag() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException, CantPutBothBlackAndBlueException {
         Bag bag = new Bag();
         MagicBall magicBall = new MagicBall(Color.GREEN);
 
@@ -28,7 +25,7 @@ class BagTest {
     }
 
     @Test
-    void shouldThrowExceptionForUnAvailableSpace() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException {
+    void shouldThrowExceptionForUnAvailableSpace() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException, CantPutBothBlackAndBlueException {
         Bag bag = new Bag(1);
         MagicBall firstMagicBall = new MagicBall(Color.GREEN);
         MagicBall secondMagicBall = new MagicBall(Color.GREEN);
@@ -39,15 +36,18 @@ class BagTest {
     }
 
     @Test
-    void shouldThrowExceptionIfWePutFourthGreenBall() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException {
+    void shouldThrowExceptionIfWePutFourthGreenBall() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException, CantPutBothBlackAndBlueException {
         Bag bag = new Bag(4);
-        MagicBall greenMagicBall = new MagicBall(Color.GREEN);
+        MagicBall firstGreenBall = new MagicBall(Color.GREEN);
+        MagicBall secondGreenBall = new MagicBall(Color.GREEN);
+        MagicBall thirdGreenBall = new MagicBall(Color.GREEN);
+        MagicBall fourthGreenBall = new MagicBall(Color.GREEN);
 
-        bag.put(greenMagicBall);
-        bag.put(greenMagicBall);
-        bag.put(greenMagicBall);
+        bag.put(firstGreenBall);
+        bag.put(secondGreenBall);
+        bag.put(thirdGreenBall);
 
-        assertThrows(ColorCapacityReachedException.class, () -> bag.put(greenMagicBall));
+        assertThrows(ColorCapacityReachedException.class, () -> bag.put(fourthGreenBall));
     }
 
     @Test
@@ -59,7 +59,7 @@ class BagTest {
     }
 
     @Test
-    void shouldThrowExceptionForPuttingYellowBallIfItExceedsFortyPercentCapacity() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException {
+    void shouldThrowExceptionForPuttingYellowBallIfItExceedsFortyPercentCapacity() throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException, YellowExceededFortyPercentCapacityException, CantPutBothBlackAndBlueException {
         Bag bag = new Bag(3);
         MagicBall yellowBall = new MagicBall(Color.YELLOW);
         MagicBall redBall = new MagicBall(Color.GREEN);
@@ -67,5 +67,16 @@ class BagTest {
         bag.put(redBall);
 
         assertThrows(YellowExceededFortyPercentCapacityException.class, () -> bag.put(yellowBall));
+    }
+
+    @Test
+    void shouldThrowExceptionIfPuttingBothBlackAndBlueInSameBag() throws SpaceNotAvailableException, ColorCapacityReachedException, YellowExceededFortyPercentCapacityException, CantPutRedException, CantPutBothBlackAndBlueException {
+        Bag bag = new Bag(3);
+        MagicBall blackBall = new MagicBall(Color.BLACK);
+        MagicBall blueBall = new MagicBall(Color.BLUE);
+
+        bag.put(blueBall);
+
+        assertThrows(CantPutBothBlackAndBlueException.class, () -> bag.put(blackBall));
     }
 }

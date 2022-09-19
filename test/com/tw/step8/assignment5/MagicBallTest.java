@@ -13,12 +13,4 @@ class MagicBallTest {
 
         assertTrue(firstGreenBall.isSameColor(secondGreenBall));
     }
-
-    @Test
-    void getColor() {
-    }
-
-    @Test
-    void getLimit() {
-    }
 }
