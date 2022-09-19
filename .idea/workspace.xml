@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="06ccc3dc-ac3a-454e-af91-141df41c95fd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Color.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/exception/SpaceNotAvailableException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/exception/ColorCapacityReachedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Bag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Color.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/Color.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tw/step8/assignment5/MagicBall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tw/step8/assignment5/MagicBall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/com/tw/step8/assignment5/BagTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/tw/step8/assignment5/BagTest.java" afterDir="false" />
     </list>
@@ -123,9 +123,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BagTest.shouldThrowExceptionIfWePutFourthGreenBall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bootcamp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tw.step8.assignment5.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tw.step8.assignment5" />
+      <option name="MAIN_CLASS_NAME" value="com.tw.step8.assignment5.BagTest" />
+      <option name="METHOD_NAME" value="shouldThrowExceptionIfWePutFourthGreenBall" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.BagTest" />
+        <item itemvalue="JUnit.BagTest.shouldThrowExceptionIfWePutFourthGreenBall" />
         <item itemvalue="JUnit.BagTest.shouldThrowExceptionForUnAvailableSpace" />
         <item itemvalue="JUnit.BagTest.shouldPutAMagicBallToBag" />
         <item itemvalue="JUnit.BagTest.shouldCreateABagOfCapacityTwelve" />

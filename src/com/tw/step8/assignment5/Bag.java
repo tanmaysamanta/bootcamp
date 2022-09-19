@@ -1,10 +1,12 @@
 package com.tw.step8.assignment5;
 
+import com.tw.step8.assignment5.exception.ColorCapacityReachedException;
 import com.tw.step8.assignment5.exception.SpaceNotAvailableException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Bag {
     public static final int MAX_CAPACITY = 12;
@@ -21,11 +23,24 @@ public class Bag {
         this.magicBalls = new ArrayList<MagicBall>(this.capacity);
     }
 
-    public void put(MagicBall magicBall) throws SpaceNotAvailableException {
+    public void put(MagicBall otherMagicBall) throws SpaceNotAvailableException, ColorCapacityReachedException {
+        checkExceptions(otherMagicBall);
+
+        this.magicBalls.add(otherMagicBall);
+    }
+
+    private void checkExceptions(MagicBall otherMagicBall) throws SpaceNotAvailableException, ColorCapacityReachedException {
         if (this.magicBalls.size() >= this.capacity){
             throw new SpaceNotAvailableException(this.capacity);
         }
-        this.magicBalls.add(magicBall);
+
+        long count = this.magicBalls.stream()
+                .filter((magicBall) -> magicBall.isSameColor(otherMagicBall))
+                .count();
+
+        if (count >= otherMagicBall.getLimit()){
+            throw  new ColorCapacityReachedException(otherMagicBall);
+        }
     }
 
     public boolean contains(MagicBall magicBall){

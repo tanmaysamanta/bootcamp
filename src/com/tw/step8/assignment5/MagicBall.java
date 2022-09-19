@@ -6,4 +6,16 @@ public class MagicBall {
     public MagicBall(Color color) {
         this.color = color;
     }
+
+    public boolean isSameColor(MagicBall otherMagicBall) {
+        return this.color == otherMagicBall.color;
+    }
+
+    public Color getColor(){
+        return this.color;
+    }
+
+    public int getLimit() {
+        return this.color.limit;
+    }
 }
