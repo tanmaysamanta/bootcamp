@@ -1,50 +1,67 @@
 package com.tw.step8.assignment5;
 
+import com.tw.step8.assignment5.exception.CantPutRedException;
 import com.tw.step8.assignment5.exception.ColorCapacityReachedException;
 import com.tw.step8.assignment5.exception.SpaceNotAvailableException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Bag {
     public static final int MAX_CAPACITY = 12;
-    private final List<MagicBall> magicBalls;
+    private final Map<Color, ArrayList<MagicBall>> magicBalls;
     private final int capacity;
 
     public Bag() {
         this.capacity = MAX_CAPACITY;
-        this.magicBalls = new ArrayList<MagicBall>(this.capacity);
+        this.magicBalls = new HashMap<Color, ArrayList<MagicBall>>() {
+        };
     }
 
-    Bag(int capacity){
+    Bag(int capacity) {
         this.capacity = capacity;
-        this.magicBalls = new ArrayList<MagicBall>(this.capacity);
+        this.magicBalls = new HashMap<Color, ArrayList<MagicBall>>();
     }
 
-    public void put(MagicBall otherMagicBall) throws SpaceNotAvailableException, ColorCapacityReachedException {
+    public void put(MagicBall otherMagicBall) throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException {
+        Color color = otherMagicBall.getColor();
+        ArrayList<MagicBall> magicBalls = this.magicBalls.computeIfAbsent(color, k -> new ArrayList<>());
+
         checkExceptions(otherMagicBall);
-
-        this.magicBalls.add(otherMagicBall);
+        magicBalls.add(otherMagicBall);
     }
 
-    private void checkExceptions(MagicBall otherMagicBall) throws SpaceNotAvailableException, ColorCapacityReachedException {
-        if (this.magicBalls.size() >= this.capacity){
+    private void checkExceptions(MagicBall otherMagicBall) throws SpaceNotAvailableException, ColorCapacityReachedException, CantPutRedException {
+        if (this.getSize() >= this.capacity) {
             throw new SpaceNotAvailableException(this.capacity);
         }
 
-        long count = this.magicBalls.stream()
-                .filter((magicBall) -> magicBall.isSameColor(otherMagicBall))
-                .count();
+        Color color = otherMagicBall.getColor();
+        ArrayList<MagicBall> magicBalls = this.magicBalls.get(color);
+        ArrayList<MagicBall> greenBalls = this.magicBalls.computeIfAbsent(Color.GREEN, k -> new ArrayList<>());
 
-        if (count >= otherMagicBall.getLimit()){
-            throw  new ColorCapacityReachedException(otherMagicBall);
+        if (color == Color.RED && magicBalls.size() + 1 > greenBalls.size() * 2) {
+            throw new CantPutRedException(greenBalls.size());
+        }
+
+        if (magicBalls.size() >= otherMagicBall.getLimit()) {
+            throw new ColorCapacityReachedException(otherMagicBall);
         }
     }
 
-    public boolean contains(MagicBall magicBall){
-        return this.magicBalls.contains(magicBall);
+    public int getSize() {
+        int count = this.magicBalls.values()
+                .stream()
+                .map((balls) -> balls.size())
+                .mapToInt((value) -> Integer.parseInt(String.valueOf(value)))
+                .sum();
+
+        return count;
+    }
+
+    public boolean contains(MagicBall magicBall) {
+        Color color = magicBall.getColor();
+        ArrayList<MagicBall> magicBalls = this.magicBalls.get(color);
+        return magicBalls.contains(magicBall);
     }
 
     @Override
