@@ -1,17 +1,30 @@
 package com.tw.step8.assignment5;
 
+import com.tw.step8.assignment5.exception.SpaceNotAvailableException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Bag {
+    public static final int MAX_CAPACITY = 12;
     private final List<MagicBall> magicBalls;
+    private final int capacity;
 
     public Bag() {
-        this.magicBalls = new ArrayList<MagicBall>(12);
+        this.capacity = MAX_CAPACITY;
+        this.magicBalls = new ArrayList<MagicBall>(this.capacity);
     }
 
-    public void put(MagicBall magicBall) {
+    Bag(int capacity){
+        this.capacity = capacity;
+        this.magicBalls = new ArrayList<MagicBall>(this.capacity);
+    }
+
+    public void put(MagicBall magicBall) throws SpaceNotAvailableException {
+        if (this.magicBalls.size() >= this.capacity){
+            throw new SpaceNotAvailableException(this.capacity);
+        }
         this.magicBalls.add(magicBall);
     }
 
